@@ -10,6 +10,7 @@
 #include "usart.h"
 
 
+
 int main(void) {
 	GPIO_initialize();
 	USART_initialize();

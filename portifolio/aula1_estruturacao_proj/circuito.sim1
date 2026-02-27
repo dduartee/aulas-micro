@@ -1,0 +1,25 @@
+<circuit version="1.0.0-RC3" rev="1148" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Led" CircId="Led-2" mainComp="false" Show_id="false" Show_Val="false" Pos="768,512" rotation="-180" hflip="1" vflip="1" label="Led-2" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
+
+<item itemtype="Ground" CircId="Ground-3" mainComp="false" Show_id="false" Show_Val="false" Pos="740,544" rotation="0" hflip="1" vflip="1" label="Ground-3" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+
+<item itemtype="Resistor" CircId="Resistor-6" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="820,528" rotation="0" hflip="1" vflip="1" label="Resistor-6" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
+
+<item itemtype="Oscope" CircId="Oscope-9" mainComp="false" Show_id="false" Show_Val="false" Pos="936,284" rotation="0" hflip="1" vflip="1" label="Oscope-9" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" TimDiv="1000000000000" TimPos="0,0,0,0," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="4" Filter="0.1 V" Trigger="4" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+
+<item itemtype="MCU" CircId="m328 TQFP-36" mainComp="false" Show_id="true" Show_Val="false" Pos="840,388" rotation="0" hflip="1" vflip="1" label="m328 TQFP-36" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="Debug/aula1_estruturacao.hex" Auto_Load="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" />
+
+<item itemtype="Node" CircId="Node-30" mainComp="false" Pos="784,528" />
+
+<item itemtype="Connector" uid="connector-31" startpinid="Ground-3-Gnd" endpinid="Led-2-rPin" pointList="740,528,752,528,752,512" />
+
+<item itemtype="Connector" uid="connector-32" startpinid="Resistor-6-lPin" endpinid="Node-30-0" pointList="804,528,784,528" />
+
+<item itemtype="Connector" uid="connector-34" startpinid="Node-30-2" endpinid="Led-2-lPin" pointList="784,528,784,512" />
+
+<item itemtype="Connector" uid="connector-35" startpinid="Oscope-9-Pin0" endpinid="Node-30-1" pointList="848,236,784,236,784,528" />
+
+<item itemtype="Connector" uid="Connector-40" startpinid="m328 TQFP-36-PORTB0" endpinid="Resistor-6-rPin" pointList="880,484,880,528,836,528" />
+
+</circuit>
