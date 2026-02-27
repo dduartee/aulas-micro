@@ -1,5 +1,5 @@
 
-XC8Application2.elf:     file format elf32-avr
+aula1_estruturacao_proj.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
