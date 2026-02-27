@@ -15,7 +15,7 @@ src/main.d src/main.o: ../src/main.c \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\common.h \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\fuse.h \
  c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\lock.h \
- ../src/../include/gpio.h ../src/../include/usart.h
+ ../include/gpio.h ../include/usart.h
 
 c:\program\ files\microchip\xc8\v2.36\avr\lib\gcc\avr\5.4.0\include\xc.h:
 
@@ -49,6 +49,6 @@ c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\fuse.h:
 
 c:\program\ files\microchip\xc8\v2.36\avr\avr\include\avr\lock.h:
 
-../src/../include/gpio.h:
+../include/gpio.h:
 
-../src/../include/usart.h:
+../include/usart.h:

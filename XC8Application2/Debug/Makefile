@@ -70,9 +70,9 @@ src/gpio.d \
 src/main.d \
 src/usart.d
 
-OUTPUT_FILE_PATH +=XC8Application2.elf
+OUTPUT_FILE_PATH +=aula1_estruturacao.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=XC8Application2.elf
+OUTPUT_FILE_PATH_AS_ARGS +=aula1_estruturacao.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
@@ -131,11 +131,11 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
 	@echo Invoking:  XC8 C Linker : 2.36
-	$(QUOTE)C:\Program Files\Microchip\xc8\v2.36\bin\xc8-cc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mcpu=ATmega328  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\xc8"  -Wl,-Map="XC8Application2.map" -funsigned-char -funsigned-bitfields -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums --memorysummary,memoryfile.xml  
+	$(QUOTE)C:\Program Files\Microchip\xc8\v2.36\bin\xc8-cc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -mcpu=ATmega328  -mdfp="C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\xc8"  -Wl,-Map="aula1_estruturacao.map" -funsigned-char -funsigned-bitfields -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums --memorysummary,memoryfile.xml  
 	@echo Finished building target: $@
-	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "XC8Application2.elf" "XC8Application2.hex"
-	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objcopy.exe" -j .eeprom --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --no-change-warnings -O ihex "XC8Application2.elf" "XC8Application2.eep" || exit 0
-	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objdump.exe" -h -S "XC8Application2.elf" > "XC8Application2.lss"
+	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "aula1_estruturacao.elf" "aula1_estruturacao.hex"
+	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objcopy.exe" -j .eeprom --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --no-change-warnings -O ihex "aula1_estruturacao.elf" "aula1_estruturacao.eep" || exit 0
+	"C:\Program Files\Microchip\xc8\v2.36\bin\avr-objdump.exe" -h -S "aula1_estruturacao.elf" > "aula1_estruturacao.lss"
 	
 	
 
@@ -147,5 +147,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER
 clean:
 	-$(RM) $(OBJS_AS_ARGS) $(EXECUTABLES)  
 	-$(RM) $(C_DEPS_AS_ARGS)   
-	rm -rf "XC8Application2.elf" "XC8Application2.hex" "XC8Application2.eep" "XC8Application2.map" "XC8Application2.usersignatures" "XC8Application2.a"  "XC8Application2.lss"
+	rm -rf "aula1_estruturacao.elf" "aula1_estruturacao.hex" "aula1_estruturacao.eep" "aula1_estruturacao.map" "aula1_estruturacao.usersignatures" "aula1_estruturacao.a"  "aula1_estruturacao.lss"
 	

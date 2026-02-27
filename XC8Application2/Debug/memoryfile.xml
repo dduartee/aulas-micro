@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <project>                                  
-  <executable name="XC8Application2.elf">                 
+  <executable name="aula1_estruturacao.elf">                 
     <memory name="program">              
       <units>bytes</units>                 
       <length>32768</length>                 
