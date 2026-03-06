@@ -18,7 +18,7 @@
 
 // inicializa gpio
 void GPIO_initialize() {
-	DDRB = 1<<DDB0;
+	DDRB = 1<<DDB0; // saida
 }
 
 // pisca o led
