@@ -48,15 +48,16 @@ void atividade2() {
   uint8_t tState = 1;
 
   while (1) {
-    // se o tState estiver para o C6 reinicia a contagem
-    if (tState & (1 << PORTC6)) {
-      tState = 1;
-    }
     // ler valor da chave
     if (PIND & (1 << PIND3)) {  // filtra o PIND para comparar com PIND3, e
                                 // retorna o valor do D3
       PORTC = tState;
-      tState = tState << 1;  // shift do 1 para a esquerda
+      // se o tState estiver para o C5 reinicia a contagem
+      if (tState & (1 << PORTC5)) {
+        tState = 1;
+      } else {
+        tState = tState << 1;  // shift do 1 para a esquerda
+      }
     } else {
       PORTC = 0;
     }
