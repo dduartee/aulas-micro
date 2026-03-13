@@ -11,26 +11,39 @@
 #include "avr/interrupt.h"
 #include "util/delay.h"
 
+int gCount = 0;
+
 ISR(INT0_vect) {
+	/*
 	PORTC = (1<<PORTC0); // alterna LED
 	_delay_ms(100);
 	PORTC = 0;
 	_delay_ms(10);
+	*/
+	gCount = 3; // acionamento manual do LED, faz com que reinicie a contagem do clock após acionar o LED
 }
 
-// rising edge no INT0
-
+ISR(INT1_vect) {
+	gCount++; // incrementa a contagem de clock para acionar o LED
+}
 
 int main(void)
 {
 	DDRC = (1<<DDC0); // configura C0 como saida
-	// EICRA = (1<<ISC01) | (1<<ISC00); // configura ISC01 ISC00 para combinação de rising edge (pressionando botao)
-	EICRA = (1<<ISC01) | (0<<ISC00); // configura ISC01 ISC00 para combinação de falling edge (soltando botao)
-	EIMSK = (0<<INT1) | (1<<INT0); // habilita INT0
+	EICRA = 
+		(0<<ISC01) | (1<<ISC00) | // ambas as bordas
+		(1<<ISC11) | (1<<ISC10); // rising edge
+		
+	EIMSK = (1<<INT1) | (1<<INT0); // habilita INT0 e INT1
 	
 	sei();
     while(1)
     {
-        //TODO:: Please write your application code 
+        if(gCount >= 3) { // centraliza o acionamento do LED
+	        PORTC = (1<<PORTC0); // alterna LED
+	        _delay_ms(100);
+	        PORTC = 0;
+	        gCount = 0;
+        }
     }
 }

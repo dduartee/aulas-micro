@@ -2,9 +2,9 @@
 
 <item itemtype="MCU" CircId="m328 TQFP-1" mainComp="false" Show_id="true" Show_Val="false" Pos="948,468" rotation="0" hflip="1" vflip="1" label="m328 TQFP-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Program="../Debug/aula3_interrupts.hex" Auto_Load="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" />
 
-<item itemtype="Switch" CircId="Switch-2" mainComp="false" Show_id="false" Show_Val="false" Pos="828,400" rotation="-90" hflip="1" vflip="1" label="Switch-2" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" Key="a" />
+<item itemtype="Switch" CircId="Switch-2" mainComp="false" Show_id="false" Show_Val="false" Pos="828,400" rotation="-90" hflip="1" vflip="1" label="Switch-2" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" DT="false" Poles="1 _Poles" />
 
-<item itemtype="Clock" CircId="Clock-5" mainComp="false" Show_id="false" Show_Val="false" Pos="900,484" rotation="0" hflip="1" vflip="1" label="Clock-5" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="false" Running="false" Voltage="5 V" Freq="1 Hz" Always_On="false" />
+<item itemtype="Clock" CircId="Clock-5" mainComp="false" Show_id="false" Show_Val="false" Pos="900,484" rotation="0" hflip="1" vflip="1" label="Clock-5" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Out="true" Running="true" Voltage="5 V" Freq="2 Hz" Always_On="false" />
 
 <item itemtype="Ground" CircId="Ground-6" mainComp="false" Show_id="false" Show_Val="false" Pos="828,492" rotation="0" hflip="1" vflip="1" label="Ground-6" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
@@ -12,15 +12,15 @@
 
 <item itemtype="Resistor" CircId="Resistor-9" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="828,448" rotation="90" hflip="1" vflip="1" label="Resistor-9" idLabPos="-16,-24" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="100 Ω" />
 
-<item itemtype="Led" CircId="Led-17" mainComp="false" Show_id="false" Show_Val="false" Pos="1080,460" rotation="0" hflip="1" vflip="1" label="Led-17" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Yellow" Grounded="false" Threshold="2.4 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
+<item itemtype="Led" CircId="Led-17" mainComp="false" Show_id="false" Show_Val="false" Pos="1080,460" rotation="0" hflip="1" vflip="1" label="Led-17" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Color="Red" Grounded="false" Threshold="2.4 V" MaxCurrent="0.03 A" Resistance="0.6 Ω" />
 
 <item itemtype="Ground" CircId="Ground-20" mainComp="false" Show_id="false" Show_Val="false" Pos="1096,512" rotation="0" hflip="1" vflip="1" label="Ground-20" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="TextComponent" CircId="TextComponent-31" mainComp="false" Show_id="false" Show_Val="false" Pos="848,344" rotation="0" hflip="1" vflip="1" label="TextComponent-31" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="5 _Pixels" Border="1 _Pixels" Opacity="1" Font="Helvetica [Cronyx]" Font_Size="10 _Pixels" Fixed_Width="false" Text="pulldown" />
+<item itemtype="TextComponent" CircId="TextComponent-31" mainComp="false" Show_id="false" Show_Val="false" Pos="836,328" rotation="0" hflip="1" vflip="1" label="TextComponent-31" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="5 _Pixels" Border="1 _Pixels" Opacity="1" Font="Helvetica [Cronyx]" Font_Size="10 _Pixels" Fixed_Width="false" Text="pulldown" />
 
-<item itemtype="Push" CircId="Push-32" mainComp="false" Show_id="false" Show_Val="false" Pos="796,408" rotation="-90" hflip="1" vflip="1" label="Push-32" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" Poles="1 _Poles" />
+<item itemtype="Push" CircId="Push-32" mainComp="false" Show_id="false" Show_Val="false" Pos="796,408" rotation="-90" hflip="1" vflip="1" label="Push-32" idLabPos="-12,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Norm_Close="false" Poles="1 _Poles" Key="a" />
 
-<item itemtype="Oscope" CircId="Oscope-37" mainComp="false" Show_id="false" Show_Val="false" Pos="1200,356" rotation="0" hflip="1" vflip="1" label="Oscope-37" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" TimDiv="100000000000" TimPos="0,0,0,0," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="4" Filter="0.1 V" Trigger="4" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+<item itemtype="Oscope" CircId="Oscope-37" mainComp="false" Show_id="false" Show_Val="false" Pos="1180,372" rotation="0" hflip="1" vflip="1" label="Oscope-37" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _Pixels" Basic_Y="135 _Pixels" TimDiv="100000000000" TimPos="0,0,0,0," VolDiv="2,2,1,2," Tunnels=",,,," Trigger="4" Filter="0.1 V" Trigger="4" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,-8.90692,0,6," />
 
 <item itemtype="Node" CircId="Node-35" mainComp="false" Pos="828,432" />
 
@@ -32,9 +32,11 @@
 
 <item itemtype="Node" CircId="Node-48" mainComp="false" Pos="828,416" />
 
+<item itemtype="Node" CircId="Node-51" mainComp="false" Pos="916,484" />
+
 <item itemtype="Connector" uid="Connector-11" startpinid="Resistor-9-rPin" endpinid="Ground-6-Gnd" pointList="828,464,828,476" />
 
-<item itemtype="Connector" uid="Connector-16" startpinid="Clock-5-outnod" endpinid="m328 TQFP-1-PORTD3" pointList="916,484,940,484" />
+<item itemtype="Connector" uid="Connector-16" startpinid="Clock-5-outnod" endpinid="Node-51-0" pointList="916,484,916,484" />
 
 <item itemtype="Connector" uid="Connector-18" startpinid="m328 TQFP-1-PORTC0" endpinid="Node-42-0" pointList="1044,492,1064,492,1064,460" />
 
@@ -48,11 +50,11 @@
 
 <item itemtype="Connector" uid="Connector-36" startpinid="Node-35-2" endpinid="Node-39-0" pointList="828,432,964,432,964,460" />
 
-<item itemtype="Connector" uid="Connector-38" startpinid="Oscope-37-Pin0" endpinid="Node-39-1" pointList="1112,308,964,308,964,460" />
+<item itemtype="Connector" uid="Connector-38" startpinid="Oscope-37-Pin0" endpinid="Node-39-1" pointList="1092,324,964,324,964,460" />
 
 <item itemtype="Connector" uid="Connector-40" startpinid="Node-39-2" endpinid="m328 TQFP-1-PORTD2" pointList="964,460,964,460" />
 
-<item itemtype="Connector" uid="Connector-41" startpinid="Oscope-37-Pin3" endpinid="Node-42-1" pointList="1112,404,1064,404,1064,460" />
+<item itemtype="Connector" uid="Connector-41" startpinid="Oscope-37-Pin3" endpinid="Node-42-1" pointList="1092,420,1064,420,1064,460" />
 
 <item itemtype="Connector" uid="Connector-43" startpinid="Node-42-2" endpinid="Led-17-lPin" pointList="1064,460,1064,460" />
 
@@ -63,5 +65,9 @@
 <item itemtype="Connector" uid="Connector-47" startpinid="Push-32-pinP0" endpinid="Node-48-1" pointList="796,424,828,424,828,416" />
 
 <item itemtype="Connector" uid="Connector-49" startpinid="Node-48-2" endpinid="Node-35-1" pointList="828,416,828,432" />
+
+<item itemtype="Connector" uid="Connector-50" startpinid="Oscope-37-Pin1" endpinid="Node-51-1" pointList="1092,356,916,356,916,484" />
+
+<item itemtype="Connector" uid="Connector-52" startpinid="Node-51-2" endpinid="m328 TQFP-1-PORTD3" pointList="916,484,940,484" />
 
 </circuit>
