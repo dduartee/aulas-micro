@@ -11,39 +11,70 @@
 #include "avr/interrupt.h"
 #include "util/delay.h"
 
-int gCount = 0;
-
+int flag_set_led = 0;
+int gPD2_prev_state = 0;
+int gPD3_prev_state = 0;
 ISR(INT0_vect) {
-	/*
-	PORTC = (1<<PORTC0); // alterna LED
-	_delay_ms(100);
-	PORTC = 0;
-	_delay_ms(10);
-	*/
-	gCount = 3; // acionamento manual do LED, faz com que reinicie a contagem do clock após acionar o LED
+	flag_set_led = 1;
 }
 
 ISR(INT1_vect) {
-	gCount++; // incrementa a contagem de clock para acionar o LED
+	flag_set_led = 1; // incrementa a contagem de clock para acionar o LED
+}
+
+ISR(PCINT2_vect) {
+	// rising edge
+	int PD2_state = PIND & (1<<PIND2);
+	if(PD2_state) {
+		if(gPD2_prev_state == 0) {
+			// houve mudança de estado	
+			flag_set_led = 1;
+		}
+		gPD2_prev_state = 1;
+	} else {
+		gPD2_prev_state = 0;
+	}
+	
+	int PD3_state = PIND & (1<<PIND3);
+	if(PD3_state) {
+		if(gPD3_prev_state == 0) {
+			// houve mudança de estado
+			flag_set_led = 1;
+		}
+			gPD3_prev_state = 1;
+		} else {
+			gPD3_prev_state = 0;
+		}
+}
+
+void EXTINT_config() {
+		EICRA = // configura interrupções
+		(0<<ISC01) | (1<<ISC00) | // ambas as bordas
+		(1<<ISC11) | (1<<ISC10); // rising edge
+		
+		EIMSK = (1<<INT1) | (1<<INT0); // habilita INT0 e INT1
+		
+}
+
+
+void PCINT_config() {
+	PCMSK2 |= (1<<PCINT18) | (1<<PCINT19); // habilita o 18 e 19 do PCIE2 (D2, D3)
+	PCICR |= (1<<PCIE2); // habilita grupo E2
 }
 
 int main(void)
 {
 	DDRC = (1<<DDC0); // configura C0 como saida
-	EICRA = 
-		(0<<ISC01) | (1<<ISC00) | // ambas as bordas
-		(1<<ISC11) | (1<<ISC10); // rising edge
-		
-	EIMSK = (1<<INT1) | (1<<INT0); // habilita INT0 e INT1
-	
+	PCINT_config();
 	sei();
+
     while(1)
     {
-        if(gCount >= 3) { // centraliza o acionamento do LED
+        if(flag_set_led) { // centraliza o acionamento do LED
 	        PORTC = (1<<PORTC0); // alterna LED
 	        _delay_ms(100);
 	        PORTC = 0;
-	        gCount = 0;
+	        flag_set_led = 0;
         }
     }
 }
