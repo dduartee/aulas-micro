@@ -1,0 +1,88 @@
+{
+    // ==================================================================
+    // Configurações Otimizadas para Portfólio de Microcontroladores
+    // ==================================================================
+    // Estas configurações são aplicadas a TODAS as aulas do portfólio
+
+    // -------------------- C/C++ Extension --------------------
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.intelliSenseEngineFallback": "enabled",
+    "C_Cpp.default.configurationProvider": "",
+
+    // -------------------- Editor --------------------
+    "editor.minimap.enabled": false,
+    "editor.suggestSelection": "first",
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.parameterHints.enabled": false,
+    "editor.codeLens": false,
+    "editor.hover.enabled": "on",
+    "editor.lightbulb.enabled": "off",
+    "editor.formatOnSave": false,
+    "editor.formatOnType": false,
+
+    // -------------------- Arquivos --------------------
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "xc.h": "c",
+        "interrupt.h": "c",
+        "delay.h": "c",
+        "Makefile": "makefile"
+    },
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true,
+        "**/.hg/store/**": true,
+        "**/build/**": true,
+        "**/output/**": true,
+        "**/*.elf": true,
+        "**/*.hex": true,
+        "**/*.o": true
+    },
+    "files.exclude": {
+        "**/.vs": true,
+        "**/build": false,
+        "**/output": false
+    },
+
+    // -------------------- Extensões --------------------
+    "extensions.ignoreRecommendations": true,
+    "extensions.autoUpdate": false,
+    "extensions.autoCheckUpdates": false,
+
+    // -------------------- Git --------------------
+    "git.autorefresh": false,
+    "git.autofetch": false,
+
+    // -------------------- Busca --------------------
+    "search.followSymlinks": false,
+    "search.useIgnoreFiles": true,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/build": true,
+        "**/output": true,
+        "**/*.elf": true,
+        "**/*.hex": true,
+        "**/*.o": true
+    },
+
+    // -------------------- Validações Desabilitadas --------------------
+    "json.validate.enable": false,
+    "javascript.validate.enable": false,
+    "typescript.validate.enable": false,
+
+    // -------------------- Telemetria --------------------
+    "telemetry.telemetryLevel": "off",
+
+    // -------------------- Clangd (desabilitado) --------------------
+    "clangd.path": "",
+    "clangd.arguments": []
+}

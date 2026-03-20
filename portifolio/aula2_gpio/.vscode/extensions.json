@@ -1,0 +1,27 @@
+{
+    // ==================================================================
+    // Extensões Recomendadas para Desenvolvimento Embedded AVR/C
+    // ==================================================================
+
+    "recommendations": [
+        // Essenciais para C/AVR
+        "ms-vscode.cpptools",
+        "ms-vscode.hexeditor",
+
+        // Úteis para desenvolvimento
+        "ms-vscode.makefile-tools"
+    ],
+
+    // Extensões que NÃO são necessárias para este portfólio
+    "unwantedRecommendations": [
+        "ms-vscode.vscode-typescript-next",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "golang.go",
+        "rust-lang.rust-analyzer",
+        "ms-toolsai.jupyter",
+        "dart-code.dart-code",
+        "dart-code.flutter"
+    ]
+}

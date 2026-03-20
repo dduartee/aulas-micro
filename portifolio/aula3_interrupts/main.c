@@ -3,7 +3,7 @@
  *
  * Created: 3/13/2026 2:22:21 PM
  *  Author: Aluno
- */ 
+ */
 
 #define F_CPU 16000000
 
@@ -27,7 +27,7 @@ ISR(PCINT2_vect) {
 	int PD2_state = PIND & (1<<PIND2);
 	if(PD2_state) {
 		if(gPD2_prev_state == 0) {
-			// houve mudança de estado	
+			// houve mudanï¿½a de estado	
 			flag_set_led = 1;
 		}
 		gPD2_prev_state = 1;
@@ -38,7 +38,7 @@ ISR(PCINT2_vect) {
 	int PD3_state = PIND & (1<<PIND3);
 	if(PD3_state) {
 		if(gPD3_prev_state == 0) {
-			// houve mudança de estado
+			// houve mudanï¿½a de estado
 			flag_set_led = 1;
 		}
 			gPD3_prev_state = 1;
@@ -48,7 +48,7 @@ ISR(PCINT2_vect) {
 }
 
 void EXTINT_config() {
-		EICRA = // configura interrupções
+		EICRA = // configura interrupï¿½ï¿½es
 		(0<<ISC01) | (1<<ISC00) | // ambas as bordas
 		(1<<ISC11) | (1<<ISC10); // rising edge
 		
