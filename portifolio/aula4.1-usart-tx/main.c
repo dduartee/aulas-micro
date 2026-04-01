@@ -1,9 +1,9 @@
+
 #define F_CPU 16000000
+
 #include <xc.h>
 
 #include "util/delay.h"
-
-
 
 void USART_initialize() {
   UBRR0 = 103;              // 9600bps U2Xn = 0

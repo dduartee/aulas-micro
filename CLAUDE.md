@@ -58,6 +58,9 @@ aulas-micro/
 - UCSR0C configuration (parity, stop bits, character size)
 - Transmit: UDR0 register
 - Async modes (9600, 115200)
+- RX with polling (UCSR0A RXC0 flag)
+- RX with interrupts (RXCIE0 + ISR USART_RX_vect)
+- HAL pattern: encapsulated driver API (hasBytes, readBytes, flush, integrityCheck)
 
 ### Bare Metal Conventions
 
@@ -132,6 +135,9 @@ Progress through course:
   - ✅ UBRR, UCSR0A/B/C configuration
   - ✅ BAUDRATE calculation
   - ✅ Transmit via UDR0
+  - ✅ RX polling (RXC0) — in `aula4.1-usart-rx/`
+  - ✅ RX interrupts (RXCIE0 + ISR) — in `aula4.2-usart-rx-interrupts/`
+  - ✅ HAL pattern with encapsulated USART driver API
 - **2.1** (24/04): SPI protocol & peripheral communication ⏳
 - **2.2** (08/05): I2C/TWI communication ⏳
 - **2.3** (15/05): Timers & Counters ⏳
@@ -272,6 +278,13 @@ while(1) {
 - **SimulIDE validation**: Test circuits in simulation before expecting physical behavior
 - **ISR efficiency**: Keep interrupt handlers SHORT - do heavy work in main loop
 - **Flag-driven design**: ISR sets flag, main loop responds (safer than ISR doing work)
+- **USART RX interrupt**: Must set RXCIE0 in UCSR0B (alongside RXEN0) — easy to miss
+- **volatile**: All variables shared between ISR and main must be `volatile`
+- **ISR reads UDR0 once**: Never loop inside ISR waiting for more bytes — one dispatch per byte
+- **Buffer copy pattern**: Pass caller-owned buffer to readBytes() — never return pointer to local stack
+- **extern in header**: `extern volatile uint8_t x = 0` is illegal — initialize only in .c file
+- **.clangd -Iinclude**: Relative path — use full path if clangd runs from repo root
+- **USART_flush() timing**: Call after copying buffer, not before
 
 ## Development Workflow
 
@@ -280,7 +293,9 @@ while(1) {
 **Completed Aulas:**
 - ✅ Aula 1.3 (GPIO Advanced) - Branch: `gpio-avancado/topicos-1-4`
 - ✅ Aula 1.4 (Interrupts) - In `aula3_interrupts/`
-- ✅ Aula 1.6 (USART) - In `aula4-usart/`
+- ✅ Aula 1.6 (USART TX) - In `aula4-usart/`
+- ✅ Aula 1.6 (USART RX polling) - In `aula4.1-usart-rx/`
+- ✅ Aula 1.6 (USART RX interrupts + HAL) - In `aula4.2-usart-rx-interrupts/`
 
 ### Branch Strategy
 
@@ -357,9 +372,10 @@ Examples in `/exemplos` demonstrate foundational patterns:
 4. ✅ State Machines (coordinating peripherals)
 5. ✅ Interrupts (INT0, INT1, PCINT)
 6. ✅ Flag-driven architecture
-7. ✅ USART (BAUDRATE, transmission)
+7. ✅ USART (BAUDRATE, TX, RX polling, RX interrupts)
+8. ✅ ISR-driven driver with encapsulated HAL API
 
-**Current Level**: Post-Aula 1.4, implementing real protocols (USART, preparing for SPI/I2C)
+**Current Level**: Post-Aula 1.6, USART complete — preparing for SPI/I2C
 
 **Next Major Topics**: Aula 2.x series - SPI, I2C, Timers, PWM, ADC
 
