@@ -26,6 +26,13 @@ COMPILER = xc8-cc
 OBJCOPY  = avr-objcopy
 SIZE     = avr-size
 
+# Configurações do AVRDUDE (upload)
+AVRDUDE      = avrdude
+UPLOAD_MCU   = atmega328p
+UPLOAD_PROG  = arduino
+UPLOAD_PORT  = $(if $(PORT),$(PORT),/dev/ttyACM0)
+UPLOAD_BAUD  = $(if $(BAUD),$(BAUD),115200)
+
 # Paths do XC8
 DFP      = /opt/microchip/mplabx/v6.25/packs/Microchip/ATmega_DFP/3.3.279/xc8
 XC8_INCLUDE = -I/opt/microchip/xc8/v3.10/avr/lib/gcc/avr/5.4.0/include \
@@ -99,6 +106,12 @@ _build_aula:
 	@$(OBJCOPY) -O ihex $(ELF) $(HEX)
 	@echo "  Build concluído: $(HEX)"
 
+# Compilar e fazer upload para o microcontrolador
+upload: build
+	@echo "==> Fazendo upload de $(AULA) para $(UPLOAD_PORT)"
+	$(AVRDUDE) -v -p $(UPLOAD_MCU) -c $(UPLOAD_PROG) --port $(UPLOAD_PORT) --baud $(UPLOAD_BAUD) -D -U flash:w:"$(AULA)/build/main.hex":i
+	@echo ""
+
 # Limpar uma aula específica
 clean: check-aula
 	@echo "==> Limpando $(AULA)"
@@ -166,12 +179,19 @@ help:
 	@echo "================================================================"
 	@echo ""
 	@echo "Compilação de Aula Específica:"
-	@echo "  make build AULA=<pasta>    - Compila uma aula específica"
-	@echo "  make clean AULA=<pasta>    - Limpa uma aula específica"
+	@echo "  make build  AULA=<pasta>   - Compila uma aula específica"
+	@echo "  make upload AULA=<pasta>   - Compila e faz upload (avrdude)"
+	@echo "  make clean  AULA=<pasta>   - Limpa uma aula específica"
 	@echo ""
 	@echo "Exemplos:"
-	@echo "  make build AULA=aula3_interrupts"
-	@echo "  make clean AULA=aula1_estruturacao_proj"
+	@echo "  make build  AULA=aula3_interrupts"
+	@echo "  make upload AULA=aula4.3-pisca-led-avrdude"
+	@echo "  make upload AULA=aula4.3-pisca-led-avrdude PORT=/dev/ttyUSB0"
+	@echo "  make clean  AULA=aula1_estruturacao_proj"
+	@echo ""
+	@echo "Upload (variáveis configuráveis):"
+	@echo "  PORT=<porta>    (padrão: $(UPLOAD_PORT))"
+	@echo "  BAUD=<baud>     (padrão: $(UPLOAD_BAUD))"
 	@echo ""
 	@echo "Compilação de Todas as Aulas:"
 	@echo "  make all               - Compila todas as aulas"
@@ -195,4 +215,4 @@ help:
 # CONFIGURAÇÃO PHONY
 # ==============================================================================
 
-.PHONY: help all clean-all build clean list status check-aula _build_aula
+.PHONY: help all clean-all build upload clean list status check-aula _build_aula

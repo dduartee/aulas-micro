@@ -44,8 +44,6 @@ void USART_readBytes(uint8_t* pBytes) {
   USART_flush();
 }
 
-
-
 // calcula o checksum
 uint8_t USART_integrityCheck() {
   uint8_t tChecksum = 0;
