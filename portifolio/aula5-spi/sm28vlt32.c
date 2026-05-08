@@ -3,7 +3,7 @@
 #include "sm28vlt32.h"
 
 void SM28VLT32_config() {
-  DDRB |= (1 << PB0); // configura pb0 como saida (chip select)
+  DDRB |= (1 << PB0); // configura PB0 como saida (chip select)
 }
 
 uint8_t SM28VLT32_writeWord(uint32_t pAddress, uint16_t pData) {
