@@ -3,7 +3,7 @@
 #include "util/delay.h"
 #include <xc.h>
 
-void TWI_master_config() {
+void TWI_config() {
     // DDRC = (1<<DDC4) | (1<<DDC5);
   TWBR = 12; // twbr*PR = (f_cpu/2scl)-8 | scl = 400khz
   TWSR = ((0 << TWPS1) | (0 << TWPS0)); // pr = 1
@@ -16,7 +16,7 @@ void TWI_master_write_byte(uint8_t pAddress, uint8_t pData) {
   while ((TWCR & (1 << TWINT)) == 0); // espera conclusão
   
   TWDR = (pAddress<<1) | 0; // coloca 0 para WRITE e envia address
-  TWCR = (1 << TWINT) | (1 << TWEN); // limpa o twint cada vez que se transmite
+  TWCR = (1 << TWINT) | (1 << TWEN); // Clear TWINT bit in TWCR to start transmission of address
   
   while ((TWCR & (1 << TWINT)) == 0); // espera conclusão
   
@@ -34,9 +34,9 @@ void TWI_master_write_byte(uint8_t pAddress, uint8_t pData) {
 }
 
 int main(void) {
-  TWI_master_config();
+  TWI_config();
   while (1) {
-    TWI_master_write_byte(55, 'a');
+    TWI_master_write_byte(0x55, 'a'); 
     _delay_ms(1000);
   }
 }
