@@ -1,0 +1,9 @@
+<circuit version="1.1.0-SR2" rev="260411" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="MCU" CircId="m328 TQFP-1" mainComp="false" Show_id="true" Show_Val="false" Pos="-252,-188" rotation="0" hflip="1" vflip="1" label="m328 TQFP-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="8 MHz" Program="build/main.hex" Auto_Load="true" saveEepr="true" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" MainMcu="true" SerialMon="-1" />
+
+<item itemtype="Oscope" CircId="Oscope-4" mainComp="false" Show_id="false" Show_Val="false" Pos="-104,12" rotation="0" hflip="1" vflip="1" label="Oscope-4" idLabPos="-90,-100" labelrot="0" valLabPos="-16,20" valLabRot="0" Basic_X="135 _px" Basic_Y="135 _px" BufferSize="600000" connectGnd="true" InputImped="10 MΩ" TimDiv="1000000000" TimPos="0,0,0,0," VolDiv="1,1,1,1," Tunnels=",,,," Trigger="4" Filter="0.1 V" AutoSC="4" Tracks="1" HideCh="false,false,false,false," VolPos="0,0,0,0," />
+
+<item itemtype="Connector" uid="Connector-6" startpinid="m328 TQFP-1-PORTB0" endpinid="Oscope-4-Pin0" pointList="-212,-92,-212,-36,-192,-36" />
+
+</circuit>
