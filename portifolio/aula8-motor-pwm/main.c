@@ -10,15 +10,15 @@
 uint8_t gPWM = PWM_INICIAL;
 uint8_t gBuzzer = 0;
 
-ISR(INT1_vect) {
+ISR(INT1_vect) { // interrupção externa acionada pelo encoder a cada rotação do motor.
     _delay_ms(70); // gambiarra pois o encoder contava repetidas vezes
-    uint16_t contagem = TCNT1;
+    uint16_t contagem = TCNT1; // contagem de tempo entre cada acionamento do encoder
     TCNT1 = 0;
 
     gBuzzer = 1;
 
     uint8_t rotacoes_segundo = 3;
-    if (contagem < (8000000/256)/rotacoes_segundo) {
+    if (contagem < (F_CPU/256)/rotacoes_segundo) { // prescaler 256
         // chegou mais rápido → reduz PWM
         if (gPWM > 0) gPWM--;
     } else {
@@ -48,12 +48,13 @@ int main(void) {
 
   TCCR1A = (0 << WGM11) |
            (0 << WGM10); // modo FAST PWM com TOP=0xFF, OC0A PWM não-inversor
-           // | (0 << COM0B0) | (1 << COM0B1) | (0 << COM0A0) | (1 << COM0A1);
            TCCR1B = (0 << WGM12) | (1 << CS12) | (0 << CS11) | (0 << CS10); // /256
+           
   OCR1A = 249; // contagem até 250 us (para F_clk @ 1MHz)
   OCR1B = 99; // 100us transição da onda com duty cycle 40%
-  //TIMSK1 = (1<<OCIE0A) | (1<<OCIE0B); // interrupções A e B de comparação de saída
+  
   EXTINT_config();
+  
   sei();
   while (1) {
     if (!(PIND & (1 << PIND2))) {
