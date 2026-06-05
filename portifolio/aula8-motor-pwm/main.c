@@ -38,7 +38,7 @@ int main(void) {
   GPIO_config();
 
   TCCR0A = (1 << WGM01) |
-           (1 << WGM00) // modo FAST PWM com TOP=0xFF, OC0A PWM não-inversor
+           (1 << WGM00) // modo FAST PWM com TOP=OCRA
            | (0 << COM0B0) | (1 << COM0B1) | (0 << COM0A0) | (1 << COM0A1);
 
   TCCR0B =
@@ -48,7 +48,7 @@ int main(void) {
 
   TCCR1A = (0 << WGM11) |
            (0 << WGM10); // modo FAST PWM com TOP=0xFF, OC0A PWM não-inversor
-           TCCR1B = (0 << WGM12) | (1 << CS12) | (0 << CS11) | (0 << CS10); // /256
+  TCCR1B = (0 << WGM12) | (1 << CS12) | (0 << CS11) | (0 << CS10); // /256
            
   OCR1A = 249; // contagem até 250 us (para F_clk @ 1MHz)
   OCR1B = 99; // 100us transição da onda com duty cycle 40%

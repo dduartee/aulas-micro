@@ -14,7 +14,7 @@ int main(void) {
   
   TCCR0B = (1 << WGM02) | (0 << CS02) | (1 << CS01) | (0 << CS00); // prescaler de /8
   OCR0A = 99;
-  while (1) {
+  while (1) {   
       gPWM++;
       if(gPWM > 99) gPWM = 0;
       OCR0B = gPWM;
