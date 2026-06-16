@@ -1,58 +1,78 @@
 #include "avr/interrupt.h"
 #include "avr/io.h"
-#include "util/delay.h"
+#include "serial_logger.h"
 #include <xc.h>
 
-#define F_CPU 8000000
-
-#define VREF 1
-#define FREQ 4 // 4hz
-#define PERI 1/FREQ
+#define F_CPU 16000000UL
 
 void ADC_config() {
-  ADMUX = (0 << REFS1) | (0 << REFS0) | // vref=AREF (pino externo)  ← alternativo: (1<<REFS1)|(1<<REFS0) = 1.1v interno
-          (0 << MUX3) | (1 << MUX2) | (0 << MUX1) | (1 << MUX0); // pino ADC5
+  ADMUX = (1 << REFS1) | (1 << REFS0) | // REFS=11: 1.1V
+          (0 << MUX3) | (0 << MUX2) | (0 << MUX1) |
+          (0 << MUX0); // MUX=0000: ADC0
 
-  ADCSRA = (1 << ADEN) | (1 << ADATE) |
-           (1 << ADIE) | // liga adc, com interrupção
-           (1 << ADPS2) | (1 << ADPS1) |
-           (1 << ADPS0); // prescaler 128 @ 16MHz, f_adc=125kHz, sampling rate
+  ADCSRA = (1 << ADEN) | (1 << ADATE) |                // ADEN ADATE
+           (1 << ADIE) |                               // ADIE
+           (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // ADPS=111: /128
 
-  ADCSRB = (1 << ADTS2) | (1 << ADTS1) | (0 << ADTS0); // ADTS=110: Timer1 Overflow (ok p/ Normal)
-  // Alternativo p/ CTC: (1<<ADTS2)|(0<<ADTS1)|(1<<ADTS0) = Compare Match B
-  DIDR0 = (1<<ADC5D); // desabilita buffer digital do ADC5
+  ADCSRB = (1 << ADTS2) | (1 << ADTS1) | (0 << ADTS0); // ADTS=110: Timer1 OVF
+  DIDR0 = (1 << ADC0D);                                // ADC0D
 }
 
 void GPIO_config() { DDRB = (1 << DDB0) | (1 << DDB1) | (1 << DDB2); }
 
-/*
- * Objetivo: Realizar leituras do LM35 com ADC, com taxa de amostragem de 4 Hz,
- * utilizando TIMER1 como fonte de disparo do ADC (modo auto-trigger).
- * vref interno (1.1v)
- */
+void Timer1_config() {
+  TCCR1A = (0 << WGM11) | (0 << WGM10); // WGM=000: Normal
+  TCCR1B =
+      (0 << WGM12) | (0 << CS12) | (1 << CS11) | (0 << CS10); // CS=011: /64
+  OCR1A = 62500;
+  OCR1B = 62500;
+  TIMSK1 = (1 << TOIE1); // TOIE1
+}
+
+// LM35: 10mV/°C, VREF=1.1V → decimos = raw * 1100 / 1024
+uint16_t LM35_celcius(uint16_t adc_raw) {
+  return (uint16_t)(((uint32_t)adc_raw * 1100UL) / 1024UL);
+}
+
 uint16_t ADC_Result;
+volatile uint8_t flag_nova_amostra;
+
 ISR(ADC_vect) {
-    ADC_Result = ADC; // armazena conversão
+  ADC_Result = ADC;
+  flag_nova_amostra = 1;
 }
 
 ISR(TIMER1_OVF_vect) { PORTB ^= (1 << PORTB0); }
 
 int main(void) {
-  // timer com prescaler (SIMULADOR ACIONA O OVF COM CTC, MAS NO ARDUINO FISICO NAO)
-  TCCR1A = (0 << WGM11) | (0 << WGM10); // WGM00 WGM01 WGM02 = modo CTC conta até OCR0A
-  TCCR1B =
-      (0 << WGM12) | (0 << CS12) | (1 << CS11) | (0 << CS10); // prescaler de /64
-  // Modo Normal (WGM12=0): conta até 65535, overflow a ~1.9 Hz c/ 8MHz+64
-  // Alternativo CTC: WGM12=1, ADTS=101 (Compare Match B), OCR1A=31249 → 4 Hz
-  
-  OCR1A = 62500; // ((1/4hz) * F_CPU)/PRE_SCALER
-  //  ^-- 8M/64=125k ticks/s; 125k/2=62.5k → overflow a ~2 Hz (não 4)
-  //  Alternativo 4 Hz: OCR1A = 8M/64/4 - 1 = 31249 (modo CTC)
-  OCR1B = 62500; // ((1/4hz) * F_CPU)/PRE_SCALER (não usado c/ ADTS=Overflow)
-  TIMSK1 = (1<<TOIE1);
-  sei();
+  Timer1_config();
   GPIO_config();
   ADC_config();
+  log_init();
+  sei();
+
+  PORTB |= (1 << PORTB1);
+  log_string("Lampada ON\r\n");
+
+  uint8_t log_tick = 0;
+
   while (1) {
+    if (flag_nova_amostra) {
+      flag_nova_amostra = 0;
+
+      if (++log_tick >= 8) {  // ~2s (8 amostras a ~4Hz)
+        log_tick = 0;
+        uint16_t raw = ADC_Result;
+        uint16_t t = LM35_celcius(raw);
+
+        log_string("ADC=");
+        log_dec(raw);
+        log_string(" T=");
+        log_dec(t / 10);
+        log_string(".");
+        log_dec(t % 10);
+        log_string(" C\r\n");
+      }
+    }
   }
 }
