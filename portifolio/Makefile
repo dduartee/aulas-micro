@@ -16,13 +16,13 @@
 # ==============================================================================
 
 # Detecta todas as pastas que são aulas (subdiretórios da raiz)
-AULAS := $(filter-out .vscode .vs, $(wildcard */))
+AULAS := $(filter-out .vscode .vs include build, $(wildcard */))
 AULAS := $(patsubst %/,%,$(AULAS))
 
 # Configurações do Compilador AVR
 MCU      = atmega328p
 F_CPU    = 16000000UL
-COMPILER = xc8-cc
+COMPILER = avr-gcc
 OBJCOPY  = avr-objcopy
 SIZE     = avr-size
 
@@ -33,16 +33,10 @@ UPLOAD_PROG  = arduino
 UPLOAD_PORT  = $(if $(PORT),$(PORT),/dev/ttyACM0)
 UPLOAD_BAUD  = $(if $(BAUD),$(BAUD),115200)
 
-# Paths do XC8
-DFP      = /opt/microchip/mplabx/v6.25/packs/Microchip/ATmega_DFP/3.3.279/xc8
-XC8_INCLUDE = -I/opt/microchip/xc8/v3.10/avr/lib/gcc/avr/5.4.0/include \
-              -I/opt/microchip/xc8/v3.10/avr/avr/include
-
-# Flags de compilação
-CFLAGS = -mcpu=$(MCU)
-CFLAGS += -mdfp="$(DFP)"
-CFLAGS += -O2
-CFLAGS += $(XC8_INCLUDE)
+# Flags de compilação (avr-gcc)
+CFLAGS = -mmcu=$(MCU)
+CFLAGS += -DF_CPU=$(F_CPU)
+CFLAGS += -Os
 CFLAGS += -Wall -Wextra
 
 # ==============================================================================
@@ -53,7 +47,7 @@ CFLAGS += -Wall -Wextra
 get_sources = $(wildcard $(1)/*.c $(1)/src/*.c)
 
 # Detecta pasta include
-get_include = $(if $(wildcard $(1)/include),-I$(1)/include,-Iinclude)
+get_include = $(if $(wildcard $(1)/include),-I$(1)/include -Iinclude,-Iinclude)
 
 # ==============================================================================
 # ALVOS PRINCIPAIS
